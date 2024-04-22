@@ -1,0 +1,53 @@
+<app-navigation></app-navigation>
+<section class="wrapper">
+  <section>
+    <div class="top-bar">
+      <p class="updated-time">Last update at {{ lastUpdate | date:'HH:mm:ss' }}</p>
+      <button
+        *ngIf="this.accountService.account.id >= 1"
+        [ngClass]="{ open: currentAssignment && !currentAssignment.open }"
+        (click)="toggleAssignmentOpen()"
+      >
+        {{ currentAssignment && currentAssignment.open ? "Close" : "Open" }}
+        assignment
+      </button>
+    </div>
+    <select
+      class="selector"
+      [(ngModel)]="currentAssignment"
+      (ngModelChange)="setAssignment($event)"
+    >
+      <option
+        *ngFor="let assignment of assignments; let i = index"
+        value="{{ assignment.id }}"
+        [ngValue]="assignment"
+      >
+        {{ assignment.open ? '[OPEN]' : '[CLOSED]' }} {{ assignment.name }}
+      </option>
+    </select>
+    <form
+      class="student-input"
+      #reviewForm="ngForm"
+      (ngSubmit)="onSubmit(reviewForm)"
+      *ngIf="accountService.account.id == -1"
+    >
+      <input type="text" placeholder="s1120364" ngModel name="studentNumber" />
+      <button type="submit">Request help</button>
+    </form>
+    <article *ngIf="reviewList.length <= 0 && takenReviewsList.length <= 0" class="order-item no-items">
+      No requests for help yet...
+    </article>
+    <app-checkout-item *ngFor="let takenReviewItem of takenReviewsList; let i = index" [review]="takenReviewItem" [index]="i+1" [taken]="true"></app-checkout-item>
+    <div class="reviewSeperator"></div>
+    <app-checkout-item *ngFor="let reviewItem of reviewList; let i = index" [review]="reviewItem" [index]="i+1" [ngClass]="{ unfocused: takenReviewsList && takenReviewsList.length > 0 }"></app-checkout-item>
+  </section>
+  <footer>
+    Made with <span class="heart">❤️</span> by
+    <a
+      href="https://nl.linkedin.com/in/ajob-kustra" target="_blank"
+      mat-raised-button
+      matTooltip="Student-assistent - Linkedin"
+      aria-label="Linkedin button"
+    >Ajob</a>
+  </footer>
+</section>

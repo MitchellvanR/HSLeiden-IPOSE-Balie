@@ -1,0 +1,48 @@
+<header class="mobile-header">
+    <div class="mobile-header-offset"></div>
+    <div class="mobile-header-wrapper">
+        <div>
+            <app-logo></app-logo>
+            <app-hamburger
+                (click)="toggleMenu()"
+            ></app-hamburger>
+        </div>
+        <div [ngClass]="{ open: menuOpen }" [ngStyle]="{ height: menuOpen ? ('calc((16pt + 32pt) * ' + (links.length)) : '0px' }">
+            <nav>
+                <p class="username" *ngIf="accountService.account.username">{{ accountService.account.username }}</p>
+                <a
+                    *ngFor="let link of links;"
+                    [routerLink]="[link[1]]"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}"
+                >
+                    {{ link[0] }}
+                </a>
+                <a *ngIf="accountService.account.id != -1" (click)="accountService.logout()">
+                    Logout
+                </a>
+            </nav>
+        </div>
+    </div>
+</header>
+<header class="desktop-header">
+    <div>
+        <app-logo></app-logo>
+    </div>
+    <nav>
+        <a
+            *ngFor="let link of links;"
+            [routerLink]="[link[1]]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+        >
+            {{ link[0] }}
+            <span class="underline"></span>
+        </a>
+        <a *ngIf="accountService.account.id != -1" (click)="accountService.logout()">
+            Logout
+            <span class="underline"></span>
+        </a>
+        <p class="username" *ngIf="accountService.account.username">{{ accountService.account.username }}</p>
+    </nav>
+</header>

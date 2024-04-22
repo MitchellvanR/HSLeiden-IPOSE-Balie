@@ -1,0 +1,209 @@
+@import '../../variables';
+
+:host {
+    width: 100%;
+    max-width: $desktop-large;
+}
+
+article.order-item {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: $background-color;
+    border-radius: 5px;
+    flex: 1;
+    margin-bottom: 10px;
+
+    &.no-margin-bottom {
+        margin-bottom: 0;
+    }
+
+    .replica-art {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16pt;
+        transition: 0.2s;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        background-color: $background-color;
+        padding: 3px;
+        border-radius: 100%;
+        color: darken($secondary-tone, 10%);
+        font-weight: bold;
+
+        &-border {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s;
+            border-radius: 100%;
+            padding: 5px;
+            background: $secondary-tone;
+        }
+    }
+
+    .order-info {
+        position: relative;
+        margin-left: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        > h2 {
+            font-size: 14pt;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        > p {
+            margin-top: 2pt;
+            flex-grow: 2;
+            font-size: 12pt;
+            color: rgba(0,0,0,0.65);
+            width: 100%;
+            line-height: 12pt;
+
+            > span {
+                margin-right: 5px;
+                background-color: darken($secondary-tone, 10%);
+                border-radius: 3px;
+                color: white;
+                padding: 0 6pt;
+            }
+        }
+    }
+
+    @media only screen and (max-width: $mobile-large) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .replica-art-border {
+            margin-bottom: 20px;
+        }
+
+        >.order-info {
+            > h2, > p {
+                text-align: center;
+            }
+        }
+
+        .order-info {
+            margin-left: 0;
+            .cost {
+                margin-top: 20px;
+                align-self: center;
+            }
+        }
+    }
+}
+
+.cost {
+    display: flex;
+    
+
+    @media only screen and (max-width: $mobile-large) {
+        margin-top: 20px;
+    }
+
+    > sub {
+        padding: 2px 8px;
+        border-radius: 100vh;
+        background-color: rgba($primary-color, 0.075);
+        color: $primary-color;
+        margin-left: 5px;
+    }
+
+    &.admin {
+
+        > button, > a {
+            background-color: darken($secondary-tone, 20%);
+
+            &:hover {
+                background-color: darken($secondary-tone, 30%);
+            }
+        }
+
+        > button, > a {
+            padding: 22px;
+
+            > img {
+                display: block;
+                width: auto;
+                padding: 2px;
+
+                &.thumb {
+                    height: 20px !important;
+                    width: 20px !important;
+                }
+            }
+        }
+    }
+
+    > button, > a {
+        transition: 0.2s;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: rgba($secondary-tone, 0.5);
+
+        &:hover, &:active {
+            background-color: darken($secondary-tone, 20%);
+        }
+
+        &:not(:first-child) {
+            margin-left: 5px;
+        }
+
+        > img {
+            height: 12px;
+            width: 12px;
+        }
+    }
+}
+
+.taken {
+    border-left: $primary-tone solid 8px;
+
+    button, a {
+        background-color: $primary-tone !important;
+
+        &:hover {
+            background-color: darken($primary-tone, 10%) !important;
+        }
+    }
+
+    .order-info > p > span {
+        background-color: $primary-tone !important;
+    }
+
+    .replica-art-border {
+        background: $primary-tone !important;
+
+        > p {
+            color: $primary-tone;
+        }
+    }
+}
+
+:host.unfocused {
+    transition: 0.2s;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+    }
+}

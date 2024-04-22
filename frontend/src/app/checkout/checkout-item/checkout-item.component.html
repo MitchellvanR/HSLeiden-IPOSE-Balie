@@ -1,0 +1,49 @@
+<article class="order-item {{ customClasses }}" [ngClass]="{ taken: taken }">
+    <div class="replica-art-border">
+        <p class="replica-art">{{ taken ? 'R' : (index || '-1') }}</p>
+    </div>
+    <div class="order-info">
+        <h2>{{ review.studentNumber }}</h2>
+        <p><span>{{ review.requestTime }}</span> Review request time</p>
+        <!-- <div class="cost" [ngClass]="{ admin: adminView }"> -->
+    </div>
+    <div class="cost admin" *ngIf="accountService.account.id != -1">
+        <button
+            *ngIf="!taken"
+            (click)="reviewService.setAssigned(review.id)"
+            mat-raised-button
+            matTooltip="Claim review"
+            aria-label="Claim button"
+        >
+            <img src="../../../assets/icons/take.svg" />
+        </button>
+        <a
+            [href]="sanitize('callto:' + review.studentNumber + '@student.hsleiden.nl')"
+            *ngIf="taken"
+            mat-raised-button
+            matTooltip="Call student"
+            aria-label="Call button"
+        >
+            <img src="../../../assets/icons/call.svg" class="thumb" />
+        </a>
+        <a
+            [href]="sanitize('https://teams.microsoft.com/l/chat/0/0?users=' + review.studentNumber + '@student.hsleiden.nl')"
+            target="_blank"
+            *ngIf="taken"
+            mat-raised-button
+            matTooltip="Message student"
+            aria-label="Message button"
+        >
+            <img src="../../../assets/icons/message.svg" class="thumb" />
+        </a>
+        <button
+            *ngIf="taken"
+            (click)="reviewService.closeReview(review.id)"
+            mat-raised-button
+            matTooltip="Resolve review"
+            aria-label="Resolve button"
+        >
+            <img src="../../../assets/icons/thumb.svg" class="thumb" />
+        </button>
+    </div>
+</article>

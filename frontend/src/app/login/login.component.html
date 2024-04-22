@@ -1,0 +1,42 @@
+<app-navigation></app-navigation>
+<section>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" [ngClass]="{ error: hasErrors }">
+        <div class="logo">
+            <app-logo></app-logo>
+        </div>
+        <div>
+            <label for="username">Username</label>
+            <input
+                placeholder="John Doe"
+                type="text"
+                id="username"
+                class="form-control"
+                ngModel
+                name="username"
+                required
+            />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input
+                placeholder="************"
+                type="password"
+                id="password"
+                class="form-control"
+                ngModel
+                name="password"
+                required
+                minlength="3"
+            />
+        </div>
+        <div class="button-holder">
+            <button
+                class="btn small"
+                type="submit"
+                [disabled]="!authForm.valid"
+            >
+                Login
+            </button>
+        </div>
+    </form>
+</section>
